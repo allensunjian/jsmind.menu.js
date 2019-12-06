@@ -31,7 +31,7 @@ jsmind.menu.js
 ```
 简单的配置之后简单版的功能已经形成，我们去看一下：
 
-![](http://192.168.30.10:8888/Public/Uploads/2019-12-05/5de8b45ff07b8.png)
+![](https://github.com/allensunjian/image/blob/master/jsmind.js/1.png)
 
 简单版，分别提供了三个基本功能： 编辑节点(edit node)，添加子节点(append child)，删除节点(delete node)。
 
@@ -47,7 +47,7 @@ menuOpts:{
 ```
 我们再去看下 实例：
 
-![](http://192.168.30.10:8888/Public/Uploads/2019-12-05/5de8b5d2d6245.png)
+![](https://github.com/allensunjian/image/blob/master/jsmind.js/2.png)
 
 对应的功能分别是： 
 - edit node 编辑节点
@@ -74,7 +74,7 @@ menuOpts:{
 ```
 以下是效果哦~
 
-![](http://192.168.30.10:8888/Public/Uploads/2019-12-05/5de8b7b1021d3.png)
+![](https://github.com/allensunjian/image/blob/master/jsmind.js/3.png)
 
 是不是很满意？
 
@@ -130,13 +130,13 @@ menuOpts:{
 
 效果这样的！
 
-![](http://192.168.30.10:8888/Public/Uploads/2019-12-05/5de8ba81932d2.png)
+![](https://github.com/allensunjian/image/blob/master/jsmind.js/4.png)
 
 还是很丑？？ 哈哈那你就自己添加样式属性吧！ 注意事项：样式属性需要时JSON格式的
 
 #### 还有其他人性化的设置吗？
 
-![](http://192.168.30.10:8888/Public/Uploads/2019-12-05/5de8bb3dd0904.png)
+![](https://github.com/allensunjian/image/blob/master/jsmind.js/5.png)
 
 这是什么？
 
@@ -163,7 +163,7 @@ menuOpts:{
 
 就可以啦！
 
-![](http://192.168.30.10:8888/Public/Uploads/2019-12-05/5de8bc6655aa3.png)
+![](https://github.com/allensunjian/image/blob/master/jsmind.js/6.png)
 
 
 
