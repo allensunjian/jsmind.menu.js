@@ -37,15 +37,29 @@
         },
         addChild: {
           isDepNode: true,
-          fn: function () {
-            this.shortcut.handle_addchild.call(this.shortcut, this);
+          fn: function (nodeid,text) {
+              var selected_node = this.get_selected_node();
+              if (!!selected_node) {
+                  var node = this.add_node(selected_node, nodeid, text);
+                  if (!!node) {
+                      this.select_node(nodeid);
+                      this.begin_edit(nodeid);
+                  }
+              }
           },
           text: 'append child'
         },
         addBrother: {
           isDepNode: true,
-          fn: function () {
-            this.shortcut.handle_addbrother.call(this.shortcut, this);
+          fn: function (nodeid,text) {
+              var selected_node = this.get_selected_node();
+              if (!!selected_node && !selected_node.isroot) {
+                  var node = this.insert_node_after(selected_node, nodeid, text);
+                  if (!!node) {
+                      this.select_node(nodeid);
+                      this.begin_edit(nodeid);
+                 }
+              }
           },
           text: 'append brother'
         },
@@ -118,7 +132,7 @@
     },
     init: function (_jm) {
       this._create_menu(_jm);
-      this._get_injectionList(_jm)
+      this._get_injectionList(_jm);
     },
     _event_contextMenu (e) {
         e.preventDefault();
@@ -142,13 +156,25 @@
       this.e_panel.appendChild(d);
     },
     _create_menu_item (j, text, fn, isDepNode,cb) {
-      var d = $c('menu-item');
+      var d = $c('menu-item'),_this = this;
       this._set_menu_item_syl(d);
       d.innerText = text;
       d.addEventListener('click', function () {
         if (this.selected_node || !isDepNode) {
-          cb(this.selected_node)
-          fn.call(j,this.selected_node);
+          if (!_this._get_mid_opts()) {
+              cb(this.selected_node, _noop)
+              fn.call(j,Jm.util.uuid.newid(), this.menuOpts.newNodeText || 'New Node');
+              return;
+          }
+            cb(this.selected_node,_this._mid_stage_next(function () {
+                var retArgs = [this.selected_node],
+                    argus = Array.prototype.slice.call(arguments[0],0);
+                argus[1] = this.menuOpts.newNodeText || 'New Node';
+                if (argus[0]) {
+                    retArgs = argus
+                }
+                fn.apply(j,retArgs);
+            }.bind(this)))
           return
         }
         alert(this.menuOpts.tipContent || 'Continue with node selected！')
@@ -234,6 +260,20 @@
         }
         _this.menu.appendChild(_this._create_menu_item(j ,text, o.fn, o.isDepNode,callback));
       })
+    },
+    _get_mid_opts () {
+       var b = this.menuOpts.switchMidStage;
+       if (!b) return false;
+       if (typeof b !== 'boolean') {
+         logger.error('[jsmind] switchMidStage must be Boolean');
+         return false;
+       }
+        return b
+    },
+    _mid_stage_next (fn) {
+     return function () {
+         fn(arguments);
+     }
     },
   }
   plugin = new Jm.plugin('menu',function (_jm) {
