@@ -8,7 +8,7 @@
  - #### 依赖 ： jsmind.js   https://github.com/hizzgdev/jsmind
  - 作者： Allen.sun
  - 日期： 2019-12-05
-  - #####[v1.0.1版本更新介绍](#jsmind.menu.js  v1.0.1版 文档) 2019-12-9
+ - #####[v1.0.1版本更新介绍](#jsmind.menu.js  v1.0.1版 文档) 2019-12-9
 
 ###正式的介绍
 
