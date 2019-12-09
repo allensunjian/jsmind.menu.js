@@ -8,6 +8,7 @@
  - #### 依赖 ： jsmind.js   https://github.com/hizzgdev/jsmind
  - 作者： Allen.sun
  - 日期： 2019-12-05
+  - #####[v1.0.1版本更新介绍](#jsmind.menu.js  v1.0.1版 文档) 2019-12-9
 
 ###正式的介绍
 
@@ -174,3 +175,95 @@ menuOpts:{
 no!!!!!
 
 我们有更多的事情去做！
+
+### jsmind.menu.js  v1.0.1版 文档
+##### 在 v1.0.1版本中新增了：
+- switchMidStage /* Boolean */ 中台开关
+- newNodeText /* String */ 新增节点的默认显示名称
+
+
+说明： switchMidStage为true时，全部的右键功能都会被相应回调函数的参数next控制，执行next则程序会继续往下执行，否则操作会被终止。 不同回调函数中的next对参数的要求略有不同。
+
+解决的问题：针对操作之前的动作进行一次拦截，并主动权交给调用方，比如新增一个节点，需要赋值一个有意义的ID，而不是一个随机产生的ID。包括很多异步操作。
+```javascript
+menuOpts:{
+      showMenu: true,
+      switchMidStage: true, //开启中台
+      newNodeText:'新的节点',
+      injectionList: [
+          {target:'edit',text: '编辑节点',
+              callback: function (node,next) {
+              fn()
+              console.log(node)
+              }
+          },
+          {target:'addChild',text: '添加子节点',
+              callback: function (node,next) {
+			  //next 需要接收一个ID
+              console.log(node);
+               var r = confirm('bulabulabula')
+                   r && fn(Math.random(0, 1000));
+
+              }
+          },
+          {target:'addBrother',text: '添加兄弟节点',
+              callback: function (node,next) {
+			  		  //next 需要接收一个ID
+                  var r = confirm('bulabulabula')
+                  r && fn(Math.random(0, 1000));
+              }
+          },
+          {target:'delete',text: '删除节点',
+              callback: function (node,next) {
+                  console.log(node)
+                  fn();
+
+              }
+          },
+          {target:'showAll',text: '展开全部节点',
+              callback: function (node,next) {
+                  console.log(node)
+                  fn();
+
+              }
+          },
+          {target:'hideAll',text: '收起全部节点',
+              callback: function (node,next) {
+                  console.log(node)
+                  fn();
+
+              }
+          },
+          {target:'screenshot',text: '下载导图',
+              callback: function (node,next) {
+                  console.log(node)
+                  fn();
+
+              }
+          },
+          {target:'showNode',text: '展开节点',
+              callback: function (node ,next) {
+                  console.log(node)
+                  fn();
+
+              }
+          },
+          {target:'hideNode',text: '关闭节点',
+              callback: function (node,next) {
+                  console.log(node)
+                  fn();
+
+              }
+          },
+      ],
+      tipContent: '我要自定义一个提示！！！！',
+      style: {
+          menu:{
+            background: 'red'
+          },
+          menuItem:{
+            'font-weight': 800,
+          },
+      }
+    },
+```
