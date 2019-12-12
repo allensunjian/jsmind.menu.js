@@ -132,8 +132,6 @@
     },
     init: function (_jm) {
       this._create_menu(_jm);
-      this._switch_view_db_event(this.menuOpts.switchMidStage, _jm);
-      this._get_injectionList(_jm);
     },
     _event_contextMenu (e) {
         e.preventDefault();
