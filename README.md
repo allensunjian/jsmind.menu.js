@@ -267,3 +267,62 @@ menuOpts:{
       }
     },
 ```
+### jsmind.menu.js  v1.0.2版 文档
+##### 在 v1.0.2版本中新增了：
+全局函数：preventMindEventDefault（） 参数：无；
+作用：解除jsmind 页面事件的影响；
+使用方法：
+
+```javascript
+var mind = {//json}; 
+var option = {// option};
+		
+jsMind.preventMindEventDefault(); // new 对象之前调用，即可生效
+	
+var jm = new jsMind(options); 
+jm.show(mind);
+```
+##### 注意事项：
+				1、该方法会使，双击节点编辑失效；
+				2、该方法会使，快捷键失效；
+				3、注意该方法只有再调用的jsmind.menu.js 脚本之后才会存在。
+				
+### jsmind.menu.js  v1.0.3版 文档
+##### 在 v1.0.3版本中新增了：
+- 针对编辑进行的专项操作优化；
+- 增加了editCaller，编辑观察者；
+
+解决问题的场景：
+在jsmind.menu.js v1.0.1/2 两个版本中，编辑并不能做到自由控制。  
+场景1： 页面中的节点的增删改查不需要，率先跟后台交互，只需要最后一次提交即可。
+解决场景：这是最简单的场景，只需要打开showMenu:true 即可 最后再统一提交树形数据；
+场景2： 增删改查 每一次都需要跟后台做互动，所以需要做大量手脚和控制去完成这样的需求，switchMidStage 中台概念及被引入，解释为了解决类似的问题，中台通过next函数即可实现控制；前两个版本 增删查 都实现了中台操作，只有改比较特殊，由于时间的关系并未解决。本次专门对“改”做了一次迭代。 
+
+使用方法：
+```javascript
+var option = {
+	menuOpts:{
+      showMenu: true,
+      switchMidStage: true,
+      editCaller: function (info, next) {  //编辑观察者
+        // info 包含节点的id 和 节点编辑之后的名称
+		// next 即可执行后台的下一步操作； 调用了next 会执行节点的更新操作，否则处于中断状态
+      },
+    },
+}
+```
+
+    
+-  用户表，储存用户信息
+
+|字段|类型|必填|默认|注释|
+|:----    |:-------    |:--- |-- -|------      |
+|editCaller	  |Function     |否	|无	 |	 本属性可以传也可以不传，如果传入的类型是Funtion则可以正常的进行编辑的中台操作，如果类型传错了或者没有定义该字段，插件系统会自动的跳过中台，直接更新节点。          |
+
+
+- 备注：无
+
+
+
+##### 注意事项：
+				1、中台操作需要配合 v1.0.2版本中的 preventMindEventDefault 方法去使用，如果不调用该方法会导致页面的事件调用错乱；
